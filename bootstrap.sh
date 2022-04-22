@@ -115,4 +115,11 @@ install_dotfiles () {
   done
 }
 
+
+if [[ ! -d ~/.oh-my-zsh ]]
+then
+  fail 'oh-my-zsh not present. Install it before continuing.'
+  exit 1
+fi
+
 install_dotfiles

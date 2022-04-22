@@ -115,6 +115,16 @@ install_dotfiles () {
   done
 }
 
+point_neovim_config_to_vim() {
+  info 'pointing neovim to vim config'
+  mkdir -p "$HOME/.config/nvim"
+  cat > "$HOME/.config/nvim/init.vim" <<EOF
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath=&runtimepath
+source ~/.vimrc
+EOF
+}
+
 
 if [[ ! -d ~/.oh-my-zsh ]]
 then
@@ -123,3 +133,4 @@ then
 fi
 
 install_dotfiles
+point_neovim_config_to_vim

@@ -3,7 +3,7 @@
 # bootstrap installs things.
 # Adapted from: https://github.com/holman/dotfiles/blob/1acaf30387b5be4eab26fa59b9155962d84e3684/script/bootstrap
 
-cd "$(dirname "$0")"
+cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd -P)
 
 set -e

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+if [[ $OSTYPE != 'darwin'* ]]; then
+  >&2 echo "Not executing [$0]: OS is not macOS"
+  exit 0
+fi
+
 # Adapted from: https://github.com/mathiasbynens/dotfiles/blob/main/.macos
 
 # Close any open System Preferences panes, to prevent them from overriding

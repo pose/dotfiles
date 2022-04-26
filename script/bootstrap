@@ -132,5 +132,11 @@ then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 fi
 
+if ! which nvim;
+then
+  # TODO Make this cross-OS
+  fail  'neovim not present. Install it before continuing.'
+fi
+
 install_dotfiles
 point_neovim_config_to_vim

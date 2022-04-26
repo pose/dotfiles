@@ -128,9 +128,8 @@ EOF
 
 if [[ ! -d ~/.oh-my-zsh ]]
 then
-  fail 'oh-my-zsh not present. Install it before continuing:'
-  fail 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-  exit 1
+  fail 'oh-my-zsh not present. Install it before continuing:
+    "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
 fi
 
 install_dotfiles

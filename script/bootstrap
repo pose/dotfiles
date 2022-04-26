@@ -138,5 +138,10 @@ then
   fail  'neovim not present. Install it before continuing.'
 fi
 
+if ! which nvm;
+then
+  info  'nvm has not been found. Install if required.'
+fi
+
 install_dotfiles
 point_neovim_config_to_vim

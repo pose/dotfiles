@@ -125,7 +125,6 @@ source ~/.vimrc
 EOF
 }
 
-
 if [[ ! -d ~/.oh-my-zsh ]]
 then
   fail 'oh-my-zsh not present. Install it before continuing:

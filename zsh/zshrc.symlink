@@ -64,3 +64,7 @@ bindkey '^[[5D' beginning-of-line
 bindkey '^[[5C' end-of-line
 bindkey '^[[3~' delete-char
 bindkey '^?' backward-delete-char
+
+# TODO Move me out of here into a git config file
+# Change default comment character on commits from # to % to allow markdown.
+git config core.commentchar "%" --global

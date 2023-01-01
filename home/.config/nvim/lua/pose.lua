@@ -5,6 +5,12 @@
 -- Native Neovim LSP
 -- ================
 
+-- Set up Mason to install and resolve LSPs
+require("mason").setup()
+require("mason-lspconfig").setup {
+  ensure_installed = {"sumneko_lua", "rust_analyzer", "tsserver", "bashls", "vimls" }
+}
+
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
@@ -100,14 +106,23 @@ cmp.setup.cmdline(':', {
 })
 
 -- this part is telling Neovim to use the lsp server
-local servers = { 'tsserver', 'bashls', 'vimls', 'sumneko_lua' }
-for _, lsp in pairs(servers) do
-  require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
+require("mason-lspconfig").setup_handlers {
+  -- The first entry (without a key) will be the default handler
+  -- and will be called for each installed server that doesn't have
+  -- a dedicated handler.
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      flags = {
+        debounce_text_changes = 150,
+      },
+    }
+  end,
+  -- Next, you can provide a dedicated handler for specific servers.
+  -- For example, a handler override for the `rust_analyzer`:
+  ["sumneko_lua"] = function ()
+    require("lspconfig").sumneko_lua.setup {
     settings = {
       -- Lua for Neovim specific settings
       Lua = {
@@ -129,8 +144,9 @@ for _, lsp in pairs(servers) do
         },
       }
     }
-  }
-end
+    }
+  end
+}
 
 -- this is for diagnositcs signs on the line number column
 -- use this to beautify the plain E W signs to more fun ones

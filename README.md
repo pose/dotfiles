@@ -8,7 +8,7 @@ source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 homeshick clone pose/dotfiles
 
 # Execute specific macOS bootstrapping
-bootstrap-macos.sh
+[[ $OSTYPE == *"darwin"* ]] && bootstrap-macos.sh
 ```
 
 ## Testing

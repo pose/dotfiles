@@ -11,3 +11,11 @@ homeshick clone pose/dotfiles
 bootstrap-macos.sh
 ```
 
+## Testing
+
+An empty Docker container is used to verify that the bootstrapping works
+correctly. Execute:
+
+```sh
+cd test && ./run-test.sh
+```

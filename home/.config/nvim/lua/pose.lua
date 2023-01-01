@@ -8,7 +8,7 @@
 -- Set up Mason to install and resolve LSPs
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = {"sumneko_lua", "rust_analyzer", "tsserver", "bashls", "vimls" }
+  ensure_installed = {"sumneko_lua", "rust_analyzer", "tsserver", "bashls", "vimls", "smithy_ls" }
 }
 
 -- Set up lspconfig.

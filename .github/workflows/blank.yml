@@ -23,4 +23,4 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: cd test/run-test.sh
+        run: cd test && ./run-test.sh

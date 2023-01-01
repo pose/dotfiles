@@ -1,0 +1,1 @@
+/Users/apose/hacking/dotfiles/zsh/zshrc.symlink

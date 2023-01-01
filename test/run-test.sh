@@ -17,7 +17,15 @@ echo "Executing inside Docker";
 
 uname
 apt-get update
-apt-get install -y git curl zsh
+apt-get install -y git curl zsh unzip
+
+echo "Installing nvm"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+export NVM_DIR
+# shellcheck disable=all
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+nvm install 18
 
 echo "Fetching neovim 0.8.2"
 curl -s -f -L -O https://github.com/neovim/neovim/releases/download/v0.8.2/nvim-linux64.deb

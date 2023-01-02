@@ -2,7 +2,6 @@
 
 set -e
 set -o pipefail
-set -x
 
 if [[ ! -f /.dockerenv ]]; then
   echo "Executing in host";
@@ -44,6 +43,8 @@ echo "Installing neovim plugins"
 nvim --headless +PlugInstall +qall
 nvim --headless +PlugInstall +"w! plug-install.log" +qall
 nvim --headless +Mason +"MasonInstall typescript-language-server" +MasonLog +"w! mason-install.log" +qall
+
+set +x
 
 # Assertions
 grep -q "cmp-buffer: Already installed" < plug-install.log

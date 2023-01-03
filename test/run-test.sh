@@ -47,40 +47,40 @@ nvim --headless +Mason +"MasonInstall typescript-language-server" +MasonLog +"w!
 set +x
 
 # Assertions
-grep -q "cmp-buffer: Already installed" < plug-install.log
-grep -q "cmp-path: Already installed" < plug-install.log
-grep -q "cmp-cmdline: Already installed" < plug-install.log
-grep -q "vim-jdaddy: Already installed" < plug-install.log
-grep -q "fzf: Already installed" < plug-install.log
-grep -q "mason-lspconfig.nvim: Already installed" < plug-install.log
-grep -q "fzf.vim: Already installed" < plug-install.log
-grep -q "vim-argumentative: Already installed" < plug-install.log
-grep -q "nvim-cmp: Already installed" < plug-install.log
-grep -q "vim-diminactive: Already installed" < plug-install.log
-grep -q "neodev.nvim: Already installed" < plug-install.log
-grep -q "vim-eunuch: Already installed" < plug-install.log
-grep -q "vim-commentary: Already installed" < plug-install.log
-grep -q "indent-blankline.nvim: Already installed" < plug-install.log
-grep -q "cmp-vsnip: Already installed" < plug-install.log
-grep -q "vim-node: Already installed" < plug-install.log
-grep -q "applescript.vim: Already installed" < plug-install.log
-grep -q "nvim-lspconfig: Already installed" < plug-install.log
-grep -q "vim-surround: Already installed" < plug-install.log
-grep -q "typescript-vim: Already installed" < plug-install.log
-grep -q "vim-code-dark: Already installed" < plug-install.log
-grep -q "vim-jsx-typescript: Already installed" < plug-install.log
-grep -q "vim-javascript: Already installed" < plug-install.log
-grep -q "mason.nvim: Already installed" < plug-install.log
-grep -q "vim-vsnip: Already installed" < plug-install.log
-grep -q "vim-jq: Already installed" < plug-install.log
-grep -q "cmp-nvim-lsp: Already installed" < plug-install.log
-grep -q "editorconfig-vim: Already installed" < plug-install.log
+grep -q "cmp-buffer: Already installed"             < plug-install.log
+grep -q "cmp-path: Already installed"               < plug-install.log
+grep -q "cmp-cmdline: Already installed"            < plug-install.log
+grep -q "vim-jdaddy: Already installed"             < plug-install.log
+grep -q "fzf: Already installed"                    < plug-install.log
+grep -q "mason-lspconfig.nvim: Already installed"   < plug-install.log
+grep -q "fzf.vim: Already installed"                < plug-install.log
+grep -q "vim-argumentative: Already installed"      < plug-install.log
+grep -q "nvim-cmp: Already installed"               < plug-install.log
+grep -q "vim-diminactive: Already installed"        < plug-install.log
+grep -q "neodev.nvim: Already installed"            < plug-install.log
+grep -q "vim-eunuch: Already installed"             < plug-install.log
+grep -q "vim-commentary: Already installed"         < plug-install.log
+grep -q "indent-blankline.nvim: Already installed"  < plug-install.log
+grep -q "cmp-vsnip: Already installed"              < plug-install.log
+grep -q "vim-node: Already installed"               < plug-install.log
+grep -q "applescript.vim: Already installed"        < plug-install.log
+grep -q "nvim-lspconfig: Already installed"         < plug-install.log
+grep -q "vim-surround: Already installed"           < plug-install.log
+grep -q "typescript-vim: Already installed"         < plug-install.log
+grep -q "vim-code-dark: Already installed"          < plug-install.log
+grep -q "vim-jsx-typescript: Already installed"     < plug-install.log
+grep -q "vim-javascript: Already installed"         < plug-install.log
+grep -q "mason.nvim: Already installed"             < plug-install.log
+grep -q "vim-vsnip: Already installed"              < plug-install.log
+grep -q "vim-jq: Already installed"                 < plug-install.log
+grep -q "cmp-nvim-lsp: Already installed"           < plug-install.log
+grep -q "editorconfig-vim: Already installed"       < plug-install.log
 
-grep -q "Installation succeeded for Package(name=bash-language-server)" < mason-install.log
-grep -q "Installation succeeded for Package(name=lua-language-server)" < mason-install.log
-grep -q "Installation succeeded for Package(name=rust-analyzer)" < mason-install.log
-grep -q "Installation succeeded for Package(name=typescript-language-server)" < mason-install.log
-grep -q "Installation succeeded for Package(name=vim-language-server)" < mason-install.log
+grep -q "Installation succeeded for Package(name=bash-language-server)"        < mason-install.log
+grep -q "Installation succeeded for Package(name=lua-language-server)"         < mason-install.log
+grep -q "Installation succeeded for Package(name=rust-analyzer)"               < mason-install.log
+grep -q "Installation succeeded for Package(name=typescript-language-server)"  < mason-install.log
+grep -q "Installation succeeded for Package(name=vim-language-server)"         < mason-install.log
 
 echo "All plugins and LSPs have been configured correctly!"
 

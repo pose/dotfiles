@@ -88,6 +88,10 @@ Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-vsnip', Cond(has('nvim'))
 Plug 'hrsh7th/vim-vsnip', Cond(has('nvim'))
 
+" If .vimrc.local-plugins file exists, source that file at the end
+if filereadable(expand('~/.vimrc.local-plugins'))
+  exe 'source ~/.vimrc.local-plugins'
+endif
 
 " All of your Plugins must be added before the following line
 call plug#end()

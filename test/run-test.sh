@@ -3,16 +3,21 @@
 set -e
 set -o pipefail
 
-if [[ ! -f /.dockerenv ]]; then
+if [[ ! "$IN_GUEST" ]]; then
+  if [[ "$OSTYPE" == *darwin* ]]; then
+    CONTAINER_CMD="finch"
+  else
+    CONTAINER_CMD="docker"
+  fi
   echo "Executing in host";
   if ! git diff --exit-code; then
     echo "Error: Changes detected on repo. Please commit and push changes before running tests."
     exit 1
   fi
-  exec docker run -t -v "$(pwd)/$(basename "$0"):/root/$(basename "$0")" --workdir /root ubuntu "$0"
+  exec $CONTAINER_CMD run -e IN_GUEST=1 -t --platform amd64 -v "$(pwd)/$(basename "$0"):/root/$(basename "$0")" --workdir /root ubuntu "$0"
 fi
 
-echo "Executing inside Docker";
+echo "Executing inside container";
 
 uname
 apt-get update

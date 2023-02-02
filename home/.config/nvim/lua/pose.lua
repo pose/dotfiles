@@ -83,6 +83,13 @@ cmp.setup.filetype('gitcommit', {
   })
 })
 
+-- Disable annoying completion for Markdown
+cmp.setup.filetype('markdown', {
+  completion = {
+    autocomplete = false
+  }
+})
+
 -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline({ '/', '?' }, {
   mapping = cmp.mapping.preset.cmdline(),

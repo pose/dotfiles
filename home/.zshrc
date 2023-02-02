@@ -78,3 +78,13 @@ source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 # Java SDK management, what a time to be alive 😒
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# https://stnly.com/fzf-and-rg/
+# ---------
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Setting rg as the default source for fzf
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+
+# To apply the command to CTRL-T as well
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

@@ -138,6 +138,7 @@ autocmd filetype html               set expandtab shiftwidth=2 tabstop=2
 autocmd filetype javascript         set expandtab shiftwidth=2 tabstop=2
 autocmd filetype markdown           set expandtab shiftwidth=2 tabstop=2
 autocmd filetype markdown           set tw=79 formatoptions+=t
+autocmd filetype markdown           set spell
 
 " Editing vim files
 " -----------------
@@ -242,3 +243,7 @@ colorscheme codedark
 if filereadable(expand('~/.vimrc.local'))
   exe 'source ~/.vimrc.local'
 endif
+
+
+" Prevent recommending the wrong indentation for Rust
+let g:rust_recommended_style = v:false

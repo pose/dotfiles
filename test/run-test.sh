@@ -44,7 +44,12 @@ rtx global nodejs 18
 
 echo "Fetching neovim 0.8.2"
 curl -s -f -L -O https://github.com/neovim/neovim/releases/download/v0.8.2/nvim-linux64.deb
-apt install ./nvim-linux64.deb
+
+if [[ -x $(which sudo) ]]; then
+  sudo apt install ./nvim-linux64.deb
+else
+  apt install ./nvim-linux64.deb
+fi
 
 echo "Installing vim-plug"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \

@@ -263,6 +263,9 @@ endif
 
 " Theme
 " -----
+" Font glyphs not displaying right? Install Nerd Fonts:
+" https://www.nerdfonts.com
+
 syntax on
 
 " Use OceanicNext only on Neovim

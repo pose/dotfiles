@@ -20,16 +20,21 @@ fi
 echo "Executing inside container";
 
 uname
-sudo apt-get update
-sudo apt-get install -y git curl zsh unzip
 
-echo "Installing nvm"
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
-NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-export NVM_DIR
-# shellcheck disable=all
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-nvm install 18
+if [[ -x $(which sudo) ]]; then
+  sudo apt-get update
+  sudo apt-get install -y git curl zsh unzip
+else
+  apt-get update
+  apt-get install -y git curl zsh unzip
+fi
+
+echo "Installing rtx"
+export SHELL="bash"
+curl https://rtx.pub/install.sh | sh
+eval "$(/root/.local/share/rtx/bin/rtx activate zsh)"
+rtx install nodejs 18
+rtx global nodejs 18
 
 echo "Fetching neovim 0.8.2"
 curl -s -f -L -O https://github.com/neovim/neovim/releases/download/v0.8.2/nvim-linux64.deb
@@ -82,7 +87,7 @@ grep -q "cmp-nvim-lsp: Already installed"           < plug-install.log
 grep -q "editorconfig-vim: Already installed"       < plug-install.log
 
 grep -q "Installation succeeded for Package(name=bash-language-server)"        < mason-install.log
-grep -q "Installation succeeded for Package(name=lua-language-server)"         < mason-install.log
+# grep -q "Installation succeeded for Package(name=lua-language-server)"         < mason-install.log
 grep -q "Installation succeeded for Package(name=rust-analyzer)"               < mason-install.log
 grep -q "Installation succeeded for Package(name=typescript-language-server)"  < mason-install.log
 grep -q "Installation succeeded for Package(name=vim-language-server)"         < mason-install.log

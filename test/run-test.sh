@@ -20,8 +20,8 @@ fi
 echo "Executing inside container";
 
 uname
-apt-get update
-apt-get install -y git curl zsh unzip
+sudo apt-get update
+sudo apt-get install -y git curl zsh unzip
 
 echo "Installing nvm"
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash

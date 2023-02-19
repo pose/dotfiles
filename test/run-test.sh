@@ -55,9 +55,9 @@ echo "Installing vim-plug"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-git clone https://github.com/andsens/homeshick.git "/root/.homesick/repos/homeshick"
+git clone https://github.com/andsens/homeshick.git ".homesick/repos/homeshick"
 # shellcheck disable=all
-source "/root/.homesick/repos/homeshick/homeshick.sh"
+source ".homesick/repos/homeshick/homeshick.sh"
 echo "y" | homeshick clone pose/dotfiles
 
 echo "Installing neovim plugins"

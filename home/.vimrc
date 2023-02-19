@@ -272,7 +272,12 @@ syntax on
 if has('nvim')
   let g:oceanic_next_terminal_bold = 1
   let g:oceanic_next_terminal_italic = 1
-  colorscheme OceanicNext
+  " Avoid failing on first run due to theme not installed
+  try
+    colorscheme OceanicNext
+  catch /^Vim\%((\a\+)\)\=:E185/
+    colorscheme codedark
+  endtry
 else
   colorscheme codedark
 endif

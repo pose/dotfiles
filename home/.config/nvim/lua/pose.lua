@@ -8,7 +8,7 @@
 -- Set up Mason to install and resolve LSPs
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = { "lua-language-server", "rust_analyzer", "tsserver", "bashls", "vimls" }
+  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls" }
 }
 
 -- Set up lspconfig.
@@ -132,31 +132,32 @@ require("mason-lspconfig").setup_handlers {
   -- Next, you can provide a dedicated handler for specific servers.
   -- For example, a handler override for the `rust_analyzer`:
   --
-  ["lua-language-server"] = function ()
-    require("lspconfig")["lua-language-server"].setup {
-    settings = {
-      -- Lua for Neovim specific settings
-      Lua = {
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { 'vim' },
-        },
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = 'LuaJIT',
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files
-          library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-          enable = false,
-        },
-      }
-    }
-    }
-  end
+  --2023-02-19 Lua not working: https://github.com/williamboman/mason.nvim/issues/995
+  -- ["lua-language-server"] = function ()
+  --   require("lspconfig")["lua-language-server"].setup {
+  --   settings = {
+  --     -- Lua for Neovim specific settings
+  --     Lua = {
+  --       diagnostics = {
+  --         -- Get the language server to recognize the `vim` global
+  --         globals = { 'vim' },
+  --       },
+  --       runtime = {
+  --         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+  --         version = 'LuaJIT',
+  --       },
+  --       workspace = {
+  --         -- Make the server aware of Neovim runtime files
+  --         library = vim.api.nvim_get_runtime_file("", true),
+  --       },
+  --       -- Do not send telemetry data containing a randomized but unique identifier
+  --       telemetry = {
+  --         enable = false,
+  --       },
+  --     }
+  --   }
+  --   }
+  -- end
 }
 
 -- this is for diagnositcs signs on the line number column

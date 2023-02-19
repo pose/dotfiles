@@ -33,9 +33,12 @@ echo "Installing rtx"
 export SHELL="bash"
 curl https://rtx.pub/install.sh | sh
 if [[ -x $(which sudo) ]]; then
-  sudo chmod ugo+x /root/.local/share/rtx/bin/rtx
+  # TODO This is a hack and it should not be path dependent
+  sudo chmod ugo+x /home/runner/.local/share/rtx/bin/rtx
+  eval "$(/home/runner/.local/share/rtx/bin/rtx activate zsh)"
+else
+  eval "$(/root/.local/share/rtx/bin/rtx activate zsh)"
 fi
-eval "$(/root/.local/share/rtx/bin/rtx activate zsh)"
 rtx install nodejs 18
 rtx global nodejs 18
 

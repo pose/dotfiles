@@ -88,6 +88,30 @@ Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-vsnip', Cond(has('nvim'))
 Plug 'hrsh7th/vim-vsnip', Cond(has('nvim'))
 
+" TypeScript plugin for Neovim
+Plug 'jose-elias-alvarez/typescript.nvim', Cond(has('nvim'))
+
+" Fast language parsing
+Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'), {'do': ':TSUpdate'})
+
+" Neovim theme
+Plug 'mhartington/oceanic-next', Cond(has('nvim'))
+
+" Yet another TypeScript syntax
+Plug 'HerringtonDarkholme/yats.vim', Cond(has('nvim'))
+
+" Improve format/linting tools integration
+Plug 'sbdchd/neoformat', Cond(has('nvim'))
+
+" Better prompts and notifications
+Plug 'folke/noice.nvim', Cond(has('nvim'))
+Plug 'MunifTanjim/nui.nvim', Cond(has('nvim'))
+Plug 'rcarriga/nvim-notify', Cond(has('nvim'))
+
+" Code tree for easier browsing
+Plug 'nvim-tree/nvim-web-devicons', Cond(has('nvim')) " optional, for file icons
+Plug 'nvim-tree/nvim-tree.lua', Cond(has('nvim'))
+
 " If .vimrc.local-plugins file exists, source that file at the end
 if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'
@@ -106,7 +130,6 @@ nnoremap - :
 
 " Tabs, Spaces and Indent
 " -----------------------
-
 set expandtab
 set autoindent                      " always set autoindenting on
 set copyindent                      " copy the previous indentation on autoindenting
@@ -125,6 +148,9 @@ if !&sidescrolloff
 endif
 set display+=lastline
 
+" Prevent recommending the wrong indentation for Rust
+let g:rust_recommended_style = v:false
+
 " Custom tab options for different languages
 " ------------------------------------------
 
@@ -132,12 +158,6 @@ filetype plugin on
 
 filetype indent on
 
-autocmd filetype python             set expandtab shiftwidth=4 tabstop=4
-autocmd filetype java               set expandtab shiftwidth=4 tabstop=4
-autocmd filetype html               set expandtab shiftwidth=2 tabstop=2
-autocmd filetype javascript         set expandtab shiftwidth=2 tabstop=2
-autocmd filetype markdown           set expandtab shiftwidth=2 tabstop=2
-autocmd filetype markdown           set tw=79 formatoptions+=t
 autocmd filetype markdown           set spell
 
 " Editing vim files
@@ -237,13 +257,32 @@ hi ColorColumn ctermbg=0 guibg=#eee8d5
 set undodir=~/.vim/undo-dir
 set undofile
 
-colorscheme codedark
+if (has("termguicolors"))
+ set termguicolors
+endif
 
+" Theme
+" -----
+syntax on
+
+" Use OceanicNext only on Neovim
+if has('nvim')
+  let g:oceanic_next_terminal_bold = 1
+  let g:oceanic_next_terminal_italic = 1
+  colorscheme OceanicNext
+else
+  colorscheme codedark
+endif
+
+" Neoformat
+" --------
+let g:neoformat_try_node_exe = 1
+autocmd BufWritePre,TextChanged,InsertLeave *.js,*.ts Neoformat
+
+" Local overrides
+" --------------
 " If .vimrc.local file exists, source that file at the end
 if filereadable(expand('~/.vimrc.local'))
   exe 'source ~/.vimrc.local'
 endif
 
-
-" Prevent recommending the wrong indentation for Rust
-let g:rust_recommended_style = v:false

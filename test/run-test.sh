@@ -32,6 +32,9 @@ fi
 echo "Installing rtx"
 export SHELL="bash"
 curl https://rtx.pub/install.sh | sh
+if [[ -x $(which sudo) ]]; then
+  sudo chmod ugo+x /root/.local/share/rtx/bin/rtx
+fi
 eval "$(/root/.local/share/rtx/bin/rtx activate zsh)"
 rtx install nodejs 18
 rtx global nodejs 18

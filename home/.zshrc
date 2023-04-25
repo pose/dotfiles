@@ -75,10 +75,6 @@ export LYNX_CFG="$HOME/.lynx.cfg"
 # Homeshick 👌
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
-# Java SDK management, what a time to be alive 😒
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
 # https://stnly.com/fzf-and-rg/
 # ---------
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -112,6 +112,10 @@ Plug 'rcarriga/nvim-notify', Cond(has('nvim'))
 Plug 'nvim-tree/nvim-web-devicons', Cond(has('nvim')) " optional, for file icons
 Plug 'nvim-tree/nvim-tree.lua', Cond(has('nvim'))
 
+" An always-on highlight for a unique character in every word on a line to help
+" you use f, F and family.
+Plug 'unblevable/quick-scope'
+
 " If .vimrc.local-plugins file exists, source that file at the end
 if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'

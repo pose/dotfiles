@@ -116,6 +116,9 @@ Plug 'nvim-tree/nvim-tree.lua', Cond(has('nvim'))
 " you use f, F and family.
 Plug 'unblevable/quick-scope'
 
+" PaperColor theme (light)
+Plug 'NLKNguyen/papercolor-theme'
+
 " If .vimrc.local-plugins file exists, source that file at the end
 if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'
@@ -272,19 +275,23 @@ endif
 
 syntax on
 
+set background=light
+colorscheme PaperColor
+set laststatus=2
+
 " Use OceanicNext only on Neovim
-if has('nvim')
-  let g:oceanic_next_terminal_bold = 1
-  let g:oceanic_next_terminal_italic = 1
-  " Avoid failing on first run due to theme not installed
-  try
-    colorscheme OceanicNext
-  catch /^Vim\%((\a\+)\)\=:E185/
-    colorscheme codedark
-  endtry
-else
-  colorscheme codedark
-endif
+" if has('nvim')
+"   let g:oceanic_next_terminal_bold = 1
+"   let g:oceanic_next_terminal_italic = 1
+"   " Avoid failing on first run due to theme not installed
+"   try
+"     colorscheme OceanicNext
+"   catch /^Vim\%((\a\+)\)\=:E185/
+"     colorscheme codedark
+"   endtry
+" else
+"   colorscheme codedark
+" endif
 
 " Neoformat
 " --------

@@ -358,5 +358,10 @@ nvim --headless +PlugInstall +qall
 
 # Install Monaco Nerd Font
 read -p "I'll fetch Monaco Nerd Font, ok? (ctrl-c to abort)"
-curl -O https://github.com/Karmenzind/monaco-nerd-fonts/blob/master/fonts/Monaco%20Nerd%20Font%20Complete%20Mono.ttf > /tmp/monaco-nerd-font-complete-mono.ttf
+curl -L https://github.com/Karmenzind/monaco-nerd-fonts/raw/master/fonts/Monaco%20Nerd%20Font%20Complete%20Mono.ttf > /tmp/monaco-nerd-font-complete-mono.ttf
 open /tmp/monaco-nerd-font-complete-mono.ttf
+
+# Install oh-my-zsh
+curl -L https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh > /tmp/install-oh-my-zsh.sh
+read -p "I'll install oh-my-zsh, ok? (ctrl-c to abort)"
+sh /tmp/install-oh-my-zsh.sh

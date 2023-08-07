@@ -335,3 +335,23 @@ for app in "Activity Monitor" \
 	killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
+
+set -x
+
+# Apps
+brew install rtx neovim
+
+# Do not send brew analytics
+brew analytics off
+
+# NodeJS
+rtx install nodejs
+rtx use --global nodejs
+
+# Vim-Plug
+read -p "I'll fetch VimPlug, ok? (ctrl-c to abort)"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+# Install Neovim plugins
+nvim --headless +PlugInstall +qall

@@ -355,3 +355,8 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 # Install Neovim plugins
 nvim --headless +PlugInstall +qall
+
+# Install Monaco Nerd Font
+read -p "I'll fetch Monaco Nerd Font, ok? (ctrl-c to abort)"
+curl -O https://github.com/Karmenzind/monaco-nerd-fonts/blob/master/fonts/Monaco%20Nerd%20Font%20Complete%20Mono.ttf > /tmp/monaco-nerd-font-complete-mono.ttf
+open /tmp/monaco-nerd-font-complete-mono.ttf

@@ -8,7 +8,7 @@
 -- Set up Mason to install and resolve LSPs
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "smithy_ls" }
+  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server"}
 }
 
 -- Set up lspconfig.
@@ -205,7 +205,7 @@ require("noice").setup({
 require('nvim-treesitter.configs').setup {
   -- one of "all", "maintained" (parsers with maintainers),
   -- or a list of languages
-  ensure_installed = { "javascript", "typescript", "comment", "vim", "help", "lua", "java", "kotlin", "smithy" },
+  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin"},
   indent = { enable = true },
   highlight = {
     enable = true,

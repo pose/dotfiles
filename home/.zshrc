@@ -67,7 +67,7 @@ bindkey '^?' backward-delete-char
 
 # TODO Move me out of here into a git config file
 # Change default comment character on commits from # to % to allow markdown.
-git config core.commentchar "%" --global
+git config --global core.commentchar "%"
 
 # Set Lynx settings
 export LYNX_CFG="$HOME/.lynx.cfg"

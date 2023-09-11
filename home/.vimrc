@@ -61,6 +61,9 @@ Plug 'tomasiser/vim-code-dark'
 " vim-argumentative: Move function arguments around
 Plug 'PeterRincker/vim-argumentative'
 
+" xwiki syntax support (Thanks Olivier!)
+Plug 'ipkiss42/xwiki.vim'
+
 " Neovim-exclusive plugins
 " See https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
 
@@ -166,6 +169,7 @@ filetype plugin on
 filetype indent on
 
 autocmd filetype markdown           set spell
+autocmd filetype xwiki              set spell
 
 " Editing vim files
 " -----------------

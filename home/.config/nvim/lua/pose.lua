@@ -8,7 +8,7 @@
 -- Set up Mason to install and resolve LSPs
 require("mason").setup()
 require("mason-lspconfig").setup {
-  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server"}
+  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server" }
 }
 
 -- Set up lspconfig.
@@ -18,7 +18,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local cmp = require 'cmp'
 
 -- Migrated line from vimscript
-vim.o.completeopt = "menu,menuone,noselect"
+-- Disabled 2023-07-23 does it mess up with the returns?
+-- vim.o.completeopt = "menu,menuone,noselect"
 
 -- Mappings.
 local opts = { noremap = true, silent = true }
@@ -64,7 +65,7 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.abort(),
     -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
@@ -183,29 +184,32 @@ require("typescript").setup({
   }
 })
 
-require("noice").setup({
-  lsp = {
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-    override = {
-      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-      ["vim.lsp.util.stylize_markdown"] = true,
-      ["cmp.entry.get_documentation"] = true,
+-- 2023-12-13 Disable noice.vim on small windows
+if vim.api.nvim_win_get_width(0) >= 100 then
+  require("noice").setup({
+    lsp = {
+      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
     },
-  },
-  -- you can enable a preset for easier configuration
-  presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
-  },
-})
+    -- you can enable a preset for easier configuration
+    presets = {
+      bottom_search = true, -- use a classic bottom cmdline for search
+      command_palette = true, -- position the cmdline and popupmenu together
+      long_message_to_split = true, -- long messages will be sent to a split
+      inc_rename = false, -- enables an input dialog for inc-rename.nvim
+      lsp_doc_border = false, -- add a border to hover docs and signature help
+    },
+  })
+end
 
 require('nvim-treesitter.configs').setup {
   -- one of "all", "maintained" (parsers with maintainers),
   -- or a list of languages
-  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin"},
+  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte" },
   indent = { enable = true },
   highlight = {
     enable = true,
@@ -223,7 +227,6 @@ vim.opt.termguicolors = true
 require("nvim-tree").setup()
 
 local function open_nvim_tree(data)
-
   -- buffer is a directory
   local directory = vim.fn.isdirectory(data.file) == 1
 

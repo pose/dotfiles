@@ -159,7 +159,7 @@ endif
 set display+=lastline
 
 " Prevent recommending the wrong indentation for Rust
-let g:rust_recommended_style = v:false
+let g:rust_recommended_style = v:true
 
 " Custom tab options for different languages
 " ------------------------------------------
@@ -178,7 +178,8 @@ noremap <leader>sop :source %<CR>
 
 " Search
 " ------
-set showmatch                       " set show matching parenthesis
+" 2023-12-13 Disabled as when using nvim-cmp it does
+" set showmatch                       " set show matching parenthesis
 set ignorecase                      " ignore case when searching
 set smartcase                       " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set hlsearch                        " highlight search terms
@@ -279,7 +280,7 @@ endif
 
 syntax on
 
-set background=light
+set background=dark
 colorscheme PaperColor
 set laststatus=2
 
@@ -300,7 +301,8 @@ set laststatus=2
 " Neoformat
 " --------
 let g:neoformat_try_node_exe = 1
-autocmd BufWritePre,TextChanged,InsertLeave *.js,*.ts Neoformat
+" 2023-12-13: Neoformat was being too invasive/aggressive and disrupting work
+"autocmd BufWritePre,TextChanged,InsertLeave *.js,*.ts,*.mts Neoformat
 
 " Local overrides
 " --------------

@@ -169,7 +169,9 @@ filetype plugin on
 filetype indent on
 
 autocmd filetype markdown           set spell
+
 autocmd filetype xwiki              set spell
+autocmd filetype xwiki              :%foldopen!
 
 " Editing vim files
 " -----------------

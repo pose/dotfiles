@@ -338,11 +338,15 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 
 set -x
 
+# Do not send brew analytics
+brew analytics off
+
 # Apps
 brew install rtx neovim
 
-# Do not send brew analytics
-brew analytics off
+# Rectangle
+brew install --cask rectangle
+defaults write com.googlecode.iterm2 DisableWindowSizeSnap -integer 1
 
 # NodeJS
 rtx install nodejs

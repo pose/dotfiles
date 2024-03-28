@@ -7,9 +7,18 @@
 
 -- Set up Mason to install and resolve LSPs
 require("mason").setup()
-require("mason-lspconfig").setup {
-  ensure_installed = { "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "gopls"}
-}
+local mason_lspconfig = require("mason-lspconfig")
+
+local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server" }
+
+print(vim.inspect(os.getenv("GOPATH")))
+if os.getenv("GOPATH") then
+  table.insert(ensure_installed, "gopls")
+end
+
+mason_lspconfig.setup({ ensure_installed = ensure_installed })
+
+require('mason-update-all').setup()
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

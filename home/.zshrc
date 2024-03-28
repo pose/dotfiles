@@ -87,7 +87,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 if which mise &> /dev/null; then
   # Activate mise for managing runtimes
-  eval "$(~/bin/mise activate zsh)"
+  eval "$(mise activate zsh)"
 fi
 
 if mise where golang &> /dev/null; then

@@ -34,10 +34,10 @@ export SHELL="bash"
 curl https://mise.jdx.dev/install.sh | sh
 if [[ -x $(which sudo) ]]; then
   # TODO This is a hack and it should not be path dependent
-  sudo chmod ugo+x /home/runner/.local/share/mise/bin/mise
-  eval "$(/home/runner/.local/share/mise/bin/mise activate zsh)"
+  sudo chmod ugo+x /home/runner/.local/bin/mise
+  eval "$($HOME/.local/bin/mise activate bash)"
 else
-  eval "$(/root/.local/share/mise/bin/mise activate zsh)"
+  eval "$($HOME/.local/bin/mise activate bash)"
 fi
 mise install nodejs 18
 mise global nodejs 18

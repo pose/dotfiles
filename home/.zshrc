@@ -75,9 +75,9 @@ export LYNX_CFG="$HOME/.lynx.cfg"
 # Homeshick 👌
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
-# https://stnly.com/fzf-and-rg/
-# ---------
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if which fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+fi
 
 # Setting rg as the default source for fzf
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'

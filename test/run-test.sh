@@ -23,10 +23,10 @@ uname
 
 if [[ -x $(which sudo) ]]; then
   sudo apt-get update
-  sudo apt-get install -y git curl zsh unzip
+  sudo apt-get install -y git curl zsh unzip build-essential
 else
   apt-get update
-  apt-get install -y git curl zsh unzip
+  apt-get install -y git curl zsh unzip build-essential
 fi
 
 echo "Installing mise"
@@ -57,8 +57,9 @@ echo "y" | homeshick clone pose/dotfiles
 echo "Installing neovim plugins"
 ./nvim-linux64/bin/nvim --headless +PlugInstall +qall
 ./nvim-linux64/bin/nvim --headless +PlugInstall +"w! plug-install.log" +qall
+./nvim-linux64/bin/nvim --headless +MasonInstall typescript-language-server +qall
 ./nvim-linux64/bin/nvim --headless -c 'autocmd User MasonUpdateAllComplete quitall' -c 'MasonUpdateAll'
-./nvim-linux64/bin/nvim --headless +Mason +MasonLog +"w! mason-install.log" +qall
+./nvim-linux64/bin/nvim --headless +MasonInstall typescript-language-server +MasonLog +"w! mason-install.log" +qall
 
 set +x
 

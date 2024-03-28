@@ -29,18 +29,18 @@ else
   apt-get install -y git curl zsh unzip
 fi
 
-echo "Installing rtx"
+echo "Installing mise"
 export SHELL="bash"
-curl https://rtx.pub/install.sh | sh
+curl https://mise.jdx.dev/install.sh | sh
 if [[ -x $(which sudo) ]]; then
   # TODO This is a hack and it should not be path dependent
-  sudo chmod ugo+x /home/runner/.local/share/rtx/bin/rtx
-  eval "$(/home/runner/.local/share/rtx/bin/rtx activate zsh)"
+  sudo chmod ugo+x /home/runner/.local/share/mise/bin/mise
+  eval "$(/home/runner/.local/share/mise/bin/mise activate zsh)"
 else
-  eval "$(/root/.local/share/rtx/bin/rtx activate zsh)"
+  eval "$(/root/.local/share/mise/bin/mise activate zsh)"
 fi
-rtx install nodejs 18
-rtx global nodejs 18
+mise install nodejs 18
+mise global nodejs 18
 
 echo "Fetching neovim 0.8.2"
 curl -s -f -L -O https://github.com/neovim/neovim/releases/download/v0.8.2/nvim-linux64.deb
@@ -55,9 +55,8 @@ echo "Installing vim-plug"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-git clone https://github.com/andsens/homeshick.git ".homesick/repos/homeshick"
-# shellcheck disable=all
-source ".homesick/repos/homeshick/homeshick.sh"
+git clone https://github.com/andsens/homeshick.git "$HOME/.homesick/repos/homeshick"
+source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 echo "y" | homeshick clone pose/dotfiles
 
 echo "Installing neovim plugins"

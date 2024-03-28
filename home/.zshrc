@@ -85,5 +85,15 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Activate rtx for managing runtimes
-eval "$(rtx activate zsh)"
+if which mise &> /dev/null; then
+  # Activate mise for managing runtimes
+  eval "$(~/bin/mise activate zsh)"
+fi
+
+if mise where golang &> /dev/null; then
+  export GOPATH=$HOME/go
+  export GOROOT=$(mise where golang)/go/
+  export GOBIN=$GOPATH/bin
+  export PATH=$PATH:$GOPATH
+  export PATH=$PATH:$GOROOT/bin
+fi

@@ -100,6 +100,11 @@ grep -q "Installation succeeded for Package(name=vim-language-server)"         <
 
 echo "All plugins and LSPs have been configured correctly!"
 
+echo "For reference, these are the Neovim LSP/plugins installed:"
+echo "---"
+cat plug-install.log mason-install.log
+echo "---"
+
 # Uncomment for interactive debugging
 # bash
 

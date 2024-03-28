@@ -18,7 +18,9 @@ end
 
 mason_lspconfig.setup({ ensure_installed = ensure_installed })
 
-require('mason-update-all').setup()
+require('mason-tool-installer').setup {
+  ensure_installed = ensure_installed
+}
 
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()

@@ -76,7 +76,7 @@ Plug 'bfrg/vim-jq', Cond(has('nvim'))
 " Mason to download required LSP servers
 Plug 'williamboman/mason.nvim', Cond(has('nvim'))
 Plug 'williamboman/mason-lspconfig.nvim', Cond(has('nvim'))
-Plug 'RubixDev/mason-update-all', Cond(has('nvim'))
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', Cond(has('nvim'))
 
 " nvim-lspconfig
 Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))

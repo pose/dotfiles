@@ -33,6 +33,7 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR="nvim"
 alias vim="nvim"
+alias l="ls -lrth"
 
 # TODO Make this into a config.zsh file as in
 # https://github.com/holman/dotfiles/blob/master/zsh/config.zsh

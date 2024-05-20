@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# Minimal interactive jq playground
+# Adapted from: https://github.com/fiatjaf/awesome-jq?tab=readme-ov-file#command-line
+# Dependecies: fzf, jq
+
+set -euo pipefail
+
+
+if [[ $# -ne 1 ]]; then
+  >&2 echo "Usage: $(basename "$0") <json file>"
+  exit 1
+fi
+
+echo '' | fzf --print-query --preview "cat $1 | jq {q}"

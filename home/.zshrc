@@ -100,3 +100,11 @@ if mise where golang &> /dev/null; then
 fi
 
 source <(npm completion)
+
+if [[ $TMUX == "" ]]; then
+  export TERM="xterm-256color"
+else
+  # Fixes home and end keys not working on Neovim
+  # See: https://github.com/neovim/neovim/issues/6134
+  export TERM="screen-256color"
+fi

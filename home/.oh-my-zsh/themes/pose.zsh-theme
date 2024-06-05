@@ -123,9 +123,11 @@ bureau_precmd () {
   print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
 
+! typeset -f pose_theme_custom_prompts >/dev/null && pose_theme_custom_prompts() {}
+
 setopt prompt_subst
 PROMPT='> $_LIBERTY '
-RPROMPT='$(nvm_prompt_info) $(bureau_git_prompt)'
+RPROMPT='$(pose_theme_custom_prompts) $(nvm_prompt_info) $(bureau_git_prompt)'
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd bureau_precmd

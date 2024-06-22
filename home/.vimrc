@@ -93,7 +93,7 @@ if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'
 endif
 
-exe 'source ~/.vim-plug.snapshot.vim'
+exe 'source ~/.vim-plug-lock.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()

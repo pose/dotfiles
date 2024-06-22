@@ -9,7 +9,7 @@
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 
-local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server" }
+local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "jqls"}
 
 print(vim.inspect(os.getenv("GOPATH")))
 if os.getenv("GOPATH") then
@@ -130,9 +130,6 @@ require("mason-lspconfig").setup_handlers {
   -- and will be called for each installed server that doesn't have
   -- a dedicated handler.
   function(server_name) -- default handler (optional)
-    if server_name == "tsserver" then
-      return
-    end
     require("lspconfig")[server_name].setup {
       on_attach = on_attach,
       capabilities = capabilities,
@@ -181,46 +178,10 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- typescript.nvim setup
-require("typescript").setup({
-  go_to_source_definition = {
-    fallback = true, -- fall back to standard LSP definition on failure
-  },
-  server = {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }
-})
-
--- 2023-12-13 Disable noice.vim on small windows
-if vim.api.nvim_win_get_width(0) >= 100 then
-  require("noice").setup({
-    lsp = {
-      -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-      override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true,
-      },
-    },
-    -- you can enable a preset for easier configuration
-    presets = {
-      bottom_search = true, -- use a classic bottom cmdline for search
-      command_palette = true, -- position the cmdline and popupmenu together
-      long_message_to_split = true, -- long messages will be sent to a split
-      inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = false, -- add a border to hover docs and signature help
-    },
-  })
-end
-
 require('nvim-treesitter.configs').setup {
   -- one of "all", "maintained" (parsers with maintainers),
   -- or a list of languages
-  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte", "go"},
+  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte", "go", "typescript"},
   indent = { enable = true },
   highlight = {
     enable = true,
@@ -253,3 +214,6 @@ local function open_nvim_tree(data)
 end
 
 vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
+-- Start indent-blankline.nvim
+require("ibl").setup()

@@ -15,10 +15,10 @@ endfunction
 " -------
 
 " add .editorconfig support
+" TODO: Add conditional since this is no longer required in newer versions:
+" - Vim 9.0.1799 and above comes bundled with a recent stable version of this plugin.
+" - Neovim 0.9 and above comes with its own Lua-based implementation.
 Plug 'editorconfig/editorconfig-vim'
-
-" add typescript-vim (support for .ts files)
-Plug 'leafgarland/typescript-vim'
 
 " Display indent levels
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -35,30 +35,18 @@ Plug 'tpope/vim-surround'
 " add commentary.vim: Comment stuff with gcc
 Plug 'tpope/vim-commentary'
 
-" add vim-javascript
-Plug 'pangloss/vim-javascript'
-
 " add :Remove, :Move, :Rename, :Mkdir, :SudoWrite, :SudoRead
 Plug 'tpope/vim-eunuch'
 
-" add gf to jump between node requires
-Plug 'moll/vim-node'
-
-" support for .jsx/.tsx/typescript
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-
 " fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() }, 'commit': 'c4a9ccd6afc3698a57a6b938ebba6d85238033e2' }
 Plug 'junegunn/fzf.vim'
 
 " Dim inactive windows
 Plug 'blueyed/vim-diminactive'
 
-" VSCode theme
-Plug 'tomasiser/vim-code-dark'
-
 " vim-argumentative: Move function arguments around
+" TODO This probably can be removed by using nvim-treesitter
 Plug 'PeterRincker/vim-argumentative'
 
 " xwiki syntax support (Thanks Olivier!)
@@ -66,12 +54,6 @@ Plug 'ipkiss42/xwiki.vim'
 
 " Neovim-exclusive plugins
 " See https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
-
-" Neovim Lua plugin development
-Plug 'folke/neodev.nvim', Cond(has('nvim'))
-
-" Syntax highlighting for jq
-Plug 'bfrg/vim-jq', Cond(has('nvim'))
 
 " Mason to download required LSP servers
 Plug 'williamboman/mason.nvim', Cond(has('nvim'))
@@ -92,33 +74,16 @@ Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-vsnip', Cond(has('nvim'))
 Plug 'hrsh7th/vim-vsnip', Cond(has('nvim'))
 
-" TypeScript plugin for Neovim
-Plug 'jose-elias-alvarez/typescript.nvim', Cond(has('nvim'))
-
 " Fast language parsing
 Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'), {'do': ':TSUpdate'})
-
-" Neovim theme
-Plug 'mhartington/oceanic-next', Cond(has('nvim'))
-
-" Yet another TypeScript syntax
-Plug 'HerringtonDarkholme/yats.vim', Cond(has('nvim'))
 
 " Improve format/linting tools integration
 Plug 'sbdchd/neoformat', Cond(has('nvim'))
 
-" Better prompts and notifications
-Plug 'folke/noice.nvim', Cond(has('nvim'))
-Plug 'MunifTanjim/nui.nvim', Cond(has('nvim'))
-Plug 'rcarriga/nvim-notify', Cond(has('nvim'))
-
 " Code tree for easier browsing
-Plug 'nvim-tree/nvim-web-devicons', Cond(has('nvim')) " optional, for file icons
+" (optional, for file icons)
+Plug 'nvim-tree/nvim-web-devicons', Cond(has('nvim'))
 Plug 'nvim-tree/nvim-tree.lua', Cond(has('nvim'))
-
-" An always-on highlight for a unique character in every word on a line to help
-" you use f, F and family.
-Plug 'unblevable/quick-scope'
 
 " PaperColor theme (light)
 Plug 'NLKNguyen/papercolor-theme'
@@ -127,6 +92,8 @@ Plug 'NLKNguyen/papercolor-theme'
 if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'
 endif
+
+exe 'source ~/.vim-plug.snapshot.vim'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -286,20 +253,6 @@ syntax on
 set background=dark
 colorscheme PaperColor
 set laststatus=2
-
-" Use OceanicNext only on Neovim
-" if has('nvim')
-"   let g:oceanic_next_terminal_bold = 1
-"   let g:oceanic_next_terminal_italic = 1
-"   " Avoid failing on first run due to theme not installed
-"   try
-"     colorscheme OceanicNext
-"   catch /^Vim\%((\a\+)\)\=:E185/
-"     colorscheme codedark
-"   endtry
-" else
-"   colorscheme codedark
-" endif
 
 " Neoformat
 " --------

@@ -32,6 +32,7 @@ silent! let g:plugs['vim-jdaddy'].commit = '23b67752cb869dd9c8f3109173b69aa96a1f
 silent! let g:plugs['vim-surround'].commit = '3d188ed2113431cf8dac77be61b842acb64433d9'
 silent! let g:plugs['vim-vsnip'].commit = '02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9'
 silent! let g:plugs['xwiki.vim'].commit = '8551414062245924c870bd4049c166bab155f9f5'
+silent! let g:plugs['vim-gitgutter'].commit = '7b0b5098e3e57be86bb96cfbf2b8902381eef57c'
 
 " Uncomment to update
 " PlugUpdate!

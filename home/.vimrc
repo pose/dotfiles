@@ -52,6 +52,10 @@ Plug 'PeterRincker/vim-argumentative'
 " xwiki syntax support (Thanks Olivier!)
 Plug 'ipkiss42/xwiki.vim'
 
+" vim-gitgutter shows which lines have been added, modified, or removed on git
+Plug 'airblade/vim-gitgutter'
+
+
 " Neovim-exclusive plugins
 " See https://github.com/junegunn/vim-plug/wiki/tips#conditional-activation
 

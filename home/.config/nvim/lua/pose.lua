@@ -9,7 +9,7 @@
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 
-local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "jqls"}
+local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "pyright"}
 
 print(vim.inspect(os.getenv("GOPATH")))
 if os.getenv("GOPATH") then
@@ -181,7 +181,7 @@ end
 require('nvim-treesitter.configs').setup {
   -- one of "all", "maintained" (parsers with maintainers),
   -- or a list of languages
-  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte", "go"},
+  ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte", "go", "python"},
   indent = { enable = true },
   highlight = {
     enable = true,

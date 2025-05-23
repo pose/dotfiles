@@ -51,7 +51,7 @@ setopt CORRECT
 setopt COMPLETE_IN_WORD
 
 setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
+setopt INC_APPEND_HISTORY_TIME SHARE_HISTORY  # adds history incrementally with timestamps and share it across sessions
 setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
 setopt HIST_REDUCE_BLANKS
 # Remove command lines from the history list when the first character on the line is a space,
@@ -81,7 +81,10 @@ if which fzf &> /dev/null; then
 fi
 
 # Setting rg as the default source for fzf
-export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,build,dist}/*" 2> /dev/null'
+# rg version of the command (for reference only)
+# export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,build,dist}/*" 2> /dev/null'
+# ag version
+export FZF_DEFAULT_COMMAND='ag --ignore-dir={node_modules,dist,build,.git} -g ""'  #'rg --files --no-ignore --hidden --follow -g "!{.git,node_modules,build,dist,env}/*" 2> /dev/null'
 
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -100,6 +103,9 @@ if mise where golang &> /dev/null; then
 fi
 
 source <(npm completion)
+
+# Load iterm2 integration (if present)
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 
 if [[ $TMUX == "" ]]; then
   export TERM="xterm-256color"

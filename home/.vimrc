@@ -14,12 +14,6 @@ endfunction
 " Plugs
 " -------
 
-" add .editorconfig support
-" TODO: Add conditional since this is no longer required in newer versions:
-" - Vim 9.0.1799 and above comes bundled with a recent stable version of this plugin.
-" - Neovim 0.9 and above comes with its own Lua-based implementation.
-Plug 'editorconfig/editorconfig-vim'
-
 " Display indent levels
 Plug 'lukas-reineke/indent-blankline.nvim'
 
@@ -97,6 +91,9 @@ if filereadable(expand('~/.vimrc.local-plugins'))
   exe 'source ~/.vimrc.local-plugins'
 endif
 
+" Lock file for VimPlug. To update:
+" 1. Run :PlugUpdate!
+" 2. Run :PlugSnapshot ~/.vim-plug-lock.vim
 exe 'source ~/.vim-plug-lock.vim'
 
 " All of your Plugins must be added before the following line
@@ -218,7 +215,9 @@ nmap <silent> <F2><right>           :vsplit<CR>
 set splitright
 set splitbelow
 
-set pastetoggle=<F5>
+if !has('nvim')
+  set pastetoggle=<F5>
+endif
 
 " FZF Mapping
 " -------------

@@ -9,7 +9,7 @@
 require("mason").setup()
 local mason_lspconfig = require("mason-lspconfig")
 
-local ensure_installed = {  "rust_analyzer", "tsserver", "bashls", "vimls", "jdtls", "kotlin_language_server", "pyright"}
+local ensure_installed = {  "rust_analyzer", "ts_ls", "bashls", "vimls", "jdtls", "kotlin_language_server", "pyright"}
 
 print(vim.inspect(os.getenv("GOPATH")))
 if os.getenv("GOPATH") then
@@ -123,51 +123,6 @@ cmp.setup.cmdline(':', {
     { name = 'cmdline' }
   })
 })
-
--- this part is telling Neovim to use the lsp server
-require("mason-lspconfig").setup_handlers {
-  -- The first entry (without a key) will be the default handler
-  -- and will be called for each installed server that doesn't have
-  -- a dedicated handler.
-  function(server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      flags = {
-        debounce_text_changes = 150,
-      },
-    }
-  end,
-  -- Next, you can provide a dedicated handler for specific servers.
-  -- For example, a handler override for the `rust_analyzer`:
-  --
-  --2023-02-19 Lua not working: https://github.com/williamboman/mason.nvim/issues/995
-  -- ["lua-language-server"] = function ()
-  --   require("lspconfig")["lua-language-server"].setup {
-  --   settings = {
-  --     -- Lua for Neovim specific settings
-  --     Lua = {
-  --       diagnostics = {
-  --         -- Get the language server to recognize the `vim` global
-  --         globals = { 'vim' },
-  --       },
-  --       runtime = {
-  --         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-  --         version = 'LuaJIT',
-  --       },
-  --       workspace = {
-  --         -- Make the server aware of Neovim runtime files
-  --         library = vim.api.nvim_get_runtime_file("", true),
-  --       },
-  --       -- Do not send telemetry data containing a randomized but unique identifier
-  --       telemetry = {
-  --         enable = false,
-  --       },
-  --     }
-  --   }
-  --   }
-  -- end
-}
 
 -- this is for diagnositcs signs on the line number column
 -- use this to beautify the plain E W signs to more fun ones

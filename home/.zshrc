@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-export ZSH_THEME="bureau"
+export ZSH_THEME="pose"
 
 # Display red dots whilest waiting for completion
 export COMPLETION_WAITING_DOTS="true"
@@ -16,7 +16,7 @@ export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git dirpersist last-working-dir shrink-path per-directory-history zsh-autosuggestions)
+plugins=(git dirpersist last-working-dir shrink-path zsh-autosuggestions)
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but
@@ -70,11 +70,20 @@ bindkey '^?' backward-delete-char
 # Change default comment character on commits from # to % to allow markdown.
 git config --global core.commentchar "%"
 
+# Rebase by default
+git config --global pull.rebase true
+
+# Auto-stash by default
+git config --global rebase.autostash true
+
 # Set Lynx settings
 export LYNX_CFG="$HOME/.lynx.cfg"
 
 # Homeshick 👌
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
+
+# Add local user binaries
+PATH="$PATH:$HOME/bin"
 
 if which fzf &> /dev/null; then
   eval "$(fzf --zsh)"
@@ -102,7 +111,11 @@ if mise where golang &> /dev/null; then
   export PATH=$PATH:$GOROOT/bin
 fi
 
-source <(npm completion)
+if which npm; then
+  source <(npm completion)
+else
+  >&2 echo "npm not found. completion disabled."
+fi
 
 # Load iterm2 integration (if present)
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
@@ -114,3 +127,5 @@ else
   # See: https://github.com/neovim/neovim/issues/6134
   export TERM="screen-256color"
 fi
+
+eval "$(atuin init zsh)"

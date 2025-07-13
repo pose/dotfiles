@@ -338,34 +338,64 @@ echo "Done. Note that some of these changes require a logout/restart to take eff
 
 set -x
 
+if ! which brew; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  >&2 echo "Not installing Homebrew since brew was found on PATH."
+fi
+
 # Do not send brew analytics
 brew analytics off
 
 # Apps
-brew install rtx neovim
+brew install mise neovim
 
 # Rectangle
 brew install --cask rectangle
 defaults write com.googlecode.iterm2 DisableWindowSizeSnap -integer 1
+# Install Monaco Nerd Font
+brew install --cask font-monaspace-nerd-font
 
 # NodeJS
-rtx install nodejs
-rtx use --global nodejs
+mise install nodejs
+mise use --global nodejs
 
 # Vim-Plug
-read -p "I'll fetch VimPlug, ok? (ctrl-c to abort)"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+VIM_PLUG_PATH=${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim"
+if ! test "$VIM_PLUG_PATH"; then
+  read -p "I'll fetch VimPlug, ok? (ctrl-c to abort)"
+  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# Install Neovim plugins
-nvim --headless +PlugInstall +qall
+  # Install Neovim plugins
+  nvim --headless +PlugInstall +qall
+else
+  >&2 echo "Ignoring Vim-Plug installation. To re-install remove: $VIM_PLUG_PATH"
+fi
 
-# Install Monaco Nerd Font
-read -p "I'll fetch Monaco Nerd Font, ok? (ctrl-c to abort)"
-curl -L https://github.com/Karmenzind/monaco-nerd-fonts/raw/master/fonts/Monaco%20Nerd%20Font%20Complete%20Mono.ttf > /tmp/monaco-nerd-font-complete-mono.ttf
-open /tmp/monaco-nerd-font-complete-mono.ttf
 
 # Install oh-my-zsh
-curl -L https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh > /tmp/install-oh-my-zsh.sh
-read -p "I'll install oh-my-zsh, ok? (ctrl-c to abort)"
-sh /tmp/install-oh-my-zsh.sh
+# XXX: Not using omz binary since this is a bash and not a zsh script
+if ! test "$HOME/.oh-my-zsh/"; then
+  curl -L https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh > /tmp/install-oh-my-zsh.sh
+  read -p "I'll install oh-my-zsh, ok? (ctrl-c to abort)"
+  sh /tmp/install-oh-my-zsh.sh
+fi
+
+
+if !  git config --get user.email; then
+  # Git commit config
+  printf 'Name for git commits (ie. John Foo): '
+  read GIT_NAME
+  printf 'Email for git commits (john.foo@example.com): '
+  read GIT_EMAIL
+
+# Configure git
+printf "Set git config to use %s <%s>? [y/n]: " "$GIT_NAME" "$GIT_EMAIL"
+read reply
+if [[ $reply =~ ^[Yy]$ ]]
+then
+  git config --global user.name "$GIT_NAME"
+  git config --global user.email "$GIT_EMAIL"
+fi
+fi

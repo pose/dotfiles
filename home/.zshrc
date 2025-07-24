@@ -103,14 +103,6 @@ if which mise &> /dev/null; then
   eval "$(mise activate zsh)"
 fi
 
-if mise where golang &> /dev/null; then
-  export GOPATH=$HOME/go
-  export GOROOT=$(mise where golang)/go/
-  export GOBIN=$GOPATH/bin
-  export PATH=$PATH:$GOPATH
-  export PATH=$PATH:$GOROOT/bin
-fi
-
 if which npm; then
   source <(npm completion)
 else

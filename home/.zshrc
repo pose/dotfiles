@@ -103,7 +103,7 @@ if which mise &> /dev/null; then
   eval "$(mise activate zsh)"
 fi
 
-if which npm; then
+if which npm &> /dev/null; then
   source <(npm completion)
 else
   >&2 echo "npm not found. completion disabled."

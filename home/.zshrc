@@ -76,6 +76,9 @@ git config --global pull.rebase true
 # Auto-stash by default
 git config --global rebase.autostash true
 
+# If on branch X and run git push, default to git push origin X
+git config --global --type bool push.autoSetupRemote true
+
 # Set Lynx settings
 export LYNX_CFG="$HOME/.lynx.cfg"
 

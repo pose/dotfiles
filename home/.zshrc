@@ -79,6 +79,14 @@ git config --global rebase.autostash true
 # If on branch X and run git push, default to git push origin X
 git config --global --type bool push.autoSetupRemote true
 
+# Globally ignore some files
+if [[ ! -e ~/.gitignore_global ]]; then
+echo .DS_Store > ~/.gitignore_global
+echo mise.local.toml >> ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+fi
+
+
 # Set Lynx settings
 export LYNX_CFG="$HOME/.lynx.cfg"
 
@@ -115,6 +123,9 @@ fi
 # Load iterm2 integration (if present)
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 
+# Disable auto title
+DISABLE_AUTO_TITLE="true"
+
 if [[ $TMUX == "" ]]; then
   export TERM="xterm-256color"
 else
@@ -123,4 +134,6 @@ else
   export TERM="screen-256color"
 fi
 
-eval "$(atuin init zsh)"
+if which atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi

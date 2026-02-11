@@ -94,7 +94,7 @@ export LYNX_CFG="$HOME/.lynx.cfg"
 source "$HOME/.homesick/repos/homeshick/homeshick.sh"
 
 # Add local user binaries
-PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 
 if which fzf &> /dev/null; then
   eval "$(fzf --zsh)"
@@ -124,7 +124,7 @@ fi
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 
 # Disable auto title
-DISABLE_AUTO_TITLE="true"
+export DISABLE_AUTO_TITLE="true"
 
 if [[ $TMUX == "" ]]; then
   export TERM="xterm-256color"
@@ -137,3 +137,5 @@ fi
 if which atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
+
+test -e "$HOME/.cargo/env" && source $HOME/.cargo/env

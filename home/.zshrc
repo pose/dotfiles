@@ -138,4 +138,9 @@ if which atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
 
+test -d "$HOME/.cargo/bin" && export PATH="$PATH:$HOME/.cargo/bin"
 test -e "$HOME/.cargo/env" && source $HOME/.cargo/env
+
+# Tried adding this by Claude settings but it didn't pick it up
+export CLAUDE_CODE_DISABLE_TERMINAL_TITLE="1"
+export CLAUDE_DISABLE_TITLE_UPDATES="1"

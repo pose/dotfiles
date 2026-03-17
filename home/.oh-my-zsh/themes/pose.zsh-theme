@@ -123,7 +123,18 @@ bureau_precmd () {
   print -rP "$_1LEFT$_1SPACES$_1RIGHT"
 }
 
-! typeset -f pose_theme_custom_prompts >/dev/null && pose_theme_custom_prompts() {}
+# Renders a clickable OSC 8 hyperlink to the current workspace's GitHub
+# issue or PR, using $_WS_TICKET_URL set by ws shell integration.
+ws_ticket_prompt() {
+  [[ -z "$_WS_TICKET_URL" ]] && return
+  local esc=$'\e' bel=$'\a'
+  local label="#${_WS_TICKET_URL##*/}"
+  print -n "%{${esc}]8;;${_WS_TICKET_URL}${bel}%}%{$fg[cyan]%}${label}%{$reset_color%}%{${esc}]8;;${bel}%}"
+}
+
+! typeset -f pose_theme_custom_prompts >/dev/null && pose_theme_custom_prompts() {
+  ws_ticket_prompt
+}
 
 setopt prompt_subst
 PROMPT='> $_LIBERTY '

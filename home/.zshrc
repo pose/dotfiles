@@ -109,11 +109,6 @@ export FZF_DEFAULT_COMMAND='ag --ignore-dir={node_modules,dist,build,.git} -g ""
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-if which mise &> /dev/null; then
-  # Activate mise for managing runtimes
-  eval "$(mise activate zsh)"
-fi
-
 if which npm &> /dev/null; then
   source <(npm completion)
 else
@@ -138,13 +133,20 @@ if which atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
 
-test -d "$HOME/.cargo/bin" && export PATH="$PATH:$HOME/.cargo/bin"
-test -e "$HOME/.cargo/env" && source $HOME/.cargo/env
 
 # Tried adding this by Claude settings but it didn't pick it up
 export CLAUDE_CODE_DISABLE_TERMINAL_TITLE="1"
 export CLAUDE_DISABLE_TITLE_UPDATES="1"
 
+test -e "$HOME/.cargo/env" && source $HOME/.cargo/env
+
 if which ws &> /dev/null; then
   eval "$(ws activate zsh)"
+fi
+
+# This needs to be the last thing since the enter and leave hooks depend
+# on the $PATH here.
+if which mise &> /dev/null; then
+  # Activate mise for managing runtimes
+  eval "$(mise activate zsh)"
 fi

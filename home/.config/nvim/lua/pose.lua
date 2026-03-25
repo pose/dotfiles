@@ -11,7 +11,6 @@ local mason_lspconfig = require("mason-lspconfig")
 
 local ensure_installed = {  "rust_analyzer", "ts_ls", "bashls", "vimls", "jdtls", "kotlin_language_server", "pyright"}
 
-print(vim.inspect(os.getenv("GOPATH")))
 if os.getenv("GOPATH") then
   table.insert(ensure_installed, "gopls")
 end
@@ -133,14 +132,8 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-require('nvim-treesitter.configs').setup {
-  -- one of "all", "maintained" (parsers with maintainers),
-  -- or a list of languages
+require('nvim-treesitter').setup {
   ensure_installed = { "javascript", "typescript", "comment", "vim", "lua", "java", "kotlin", "svelte", "go", "python"},
-  indent = { enable = true },
-  highlight = {
-    enable = true,
-  },
 }
 
 -- disable netrw at the very start of your init.lua (strongly advised)

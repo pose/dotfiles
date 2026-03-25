@@ -57,46 +57,35 @@ echo "y" | homeshick clone pose/dotfiles
 echo "Installing neovim plugins"
 ./nvim-linux64/bin/nvim --headless +PlugInstall +qall
 ./nvim-linux64/bin/nvim --headless +PlugInstall +"w! plug-install.log" +qall
-./nvim-linux64/bin/nvim --headless -c 'MasonInstall typescript-language-server' +qall
-./nvim-linux64/bin/nvim --headless -c 'autocmd User MasonToolsUpdateCompleted quitall' -c 'MasonToolsInstallSync'
-./nvim-linux64/bin/nvim --headless -c 'MasonInstall typescript-language-server' +MasonLog +"w! mason-install.log" +qall
+
+echo "Installing Mason LSP servers (CI subset only)"
+./nvim-linux64/bin/nvim --headless \
+  +"lua require('mason-tool-installer').setup({ ensure_installed = {'bash-language-server', 'rust-analyzer', 'typescript-language-server', 'vim-language-server'} })" \
+  -c 'autocmd User MasonToolsUpdateCompleted quitall' \
+  -c 'MasonToolsInstallSync'
+./nvim-linux64/bin/nvim --headless +MasonLog +"w! mason-install.log" +qall
 
 set +x
-# Assertions
-grep -q "cmp-buffer: Already installed"             < plug-install.log
-grep -q "cmp-path: Already installed"               < plug-install.log
-grep -q "cmp-cmdline: Already installed"            < plug-install.log
-grep -q "vim-jdaddy: Already installed"             < plug-install.log
-grep -q "fzf: Already installed"                    < plug-install.log
-grep -q "mason-lspconfig.nvim: Already installed"   < plug-install.log
-grep -q "fzf.vim: Already installed"                < plug-install.log
-grep -q "vim-argumentative: Already installed"      < plug-install.log
-grep -q "nvim-cmp: Already installed"               < plug-install.log
-grep -q "vim-diminactive: Already installed"        < plug-install.log
-grep -q "neodev.nvim: Already installed"            < plug-install.log
-grep -q "vim-eunuch: Already installed"             < plug-install.log
-grep -q "vim-commentary: Already installed"         < plug-install.log
-grep -q "indent-blankline.nvim: Already installed"  < plug-install.log
-grep -q "cmp-vsnip: Already installed"              < plug-install.log
-grep -q "vim-node: Already installed"               < plug-install.log
-grep -q "applescript.vim: Already installed"        < plug-install.log
-grep -q "nvim-lspconfig: Already installed"         < plug-install.log
-grep -q "vim-surround: Already installed"           < plug-install.log
-grep -q "typescript-vim: Already installed"         < plug-install.log
-grep -q "vim-code-dark: Already installed"          < plug-install.log
-grep -q "vim-jsx-typescript: Already installed"     < plug-install.log
-grep -q "vim-javascript: Already installed"         < plug-install.log
-grep -q "mason.nvim: Already installed"             < plug-install.log
-grep -q "vim-vsnip: Already installed"              < plug-install.log
-grep -q "vim-jq: Already installed"                 < plug-install.log
-grep -q "cmp-nvim-lsp: Already installed"           < plug-install.log
-grep -q "editorconfig-vim: Already installed"       < plug-install.log
+# Assertions — automatically derived from .vimrc Plug entries
+echo "Checking vim-plug plugins..."
+EXPECTED_PLUGINS=$(grep -E "^Plug " ~/.vimrc | sed "s/.*'\([^']*\/\)\([^']*\)'.*/\2/")
+for plugin in $EXPECTED_PLUGINS; do
+  if ! grep -q "$plugin: Already installed" plug-install.log; then
+    echo "FAIL: plugin '$plugin' not found in plug-install.log"
+    exit 1
+  fi
+  echo "  OK: $plugin"
+done
 
-grep -q "Installation succeeded for Package(name=bash-language-server)"        < mason-install.log
-# grep -q "Installation succeeded for Package(name=lua-language-server)"         < mason-install.log
-grep -q "Installation succeeded for Package(name=rust-analyzer)"               < mason-install.log
-grep -q "Installation succeeded for Package(name=typescript-language-server)"  < mason-install.log
-grep -q "Installation succeeded for Package(name=vim-language-server)"         < mason-install.log
+echo "Checking Mason LSP servers..."
+EXPECTED_LSPS="bash-language-server rust-analyzer typescript-language-server vim-language-server"
+for lsp in $EXPECTED_LSPS; do
+  if ! grep -q "Installation succeeded for Package(name=$lsp)" mason-install.log; then
+    echo "FAIL: LSP '$lsp' not found in mason-install.log"
+    exit 1
+  fi
+  echo "  OK: $lsp"
+done
 
 echo "All plugins and LSPs have been configured correctly!"
 

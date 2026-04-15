@@ -129,8 +129,11 @@ else
   export TERM="screen-256color"
 fi
 
-if which atuin &> /dev/null; then
-  eval "$(atuin init zsh)"
+# TODO This is required since atuin is not in PATH
+if . "$HOME/.atuin/bin/env"; then
+  if which atuin &> /dev/null; then
+    eval "$(atuin init zsh)"
+  fi
 fi
 
 

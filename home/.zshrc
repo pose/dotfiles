@@ -129,11 +129,16 @@ else
   export TERM="screen-256color"
 fi
 
-# TODO This is required since atuin is not in PATH
-if . "$HOME/.atuin/bin/env"; then
-  if which atuin &> /dev/null; then
-    eval "$(atuin init zsh)"
-  fi
+# Atuin
+# Case where atuin was installed through homebrew (macos)
+if which atuin &> /dev/null; then
+  eval "$(atuin init zsh)"
+fi
+
+# Case where autin was installed locally
+if test -f "$HOME/.atuin/bin/env"; then
+  . "$HOME/.atuin/bin/env"
+  eval "$(atuin init zsh)"
 fi
 
 
@@ -153,3 +158,6 @@ if which mise &> /dev/null; then
   # Activate mise for managing runtimes
   eval "$(mise activate zsh)"
 fi
+
+# Pulumi
+export PULUMI_SUPPRESS_NEO_LINK=true

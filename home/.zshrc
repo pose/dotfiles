@@ -16,7 +16,16 @@ export DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git dirpersist last-working-dir shrink-path zsh-autosuggestions)
+plugins=(git dirpersist last-working-dir shrink-path zsh-autosuggestions ssh-agent)
+
+# ssh-agent configuration
+
+# Do not load any identities on start
+zstyle :omz:plugins:ssh-agent lazy yes
+
+# set the maximum lifetime of the identities
+zstyle :omz:plugins:ssh-agent lifetime 3h
+
 
 # Stash your environment variables in ~/.localrc. This means they'll stay out
 # of your main dotfiles repository (which may be public, like this one), but

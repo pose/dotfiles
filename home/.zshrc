@@ -138,8 +138,13 @@ else
   export TERM="screen-256color"
 fi
 
+
+
+test -e "$HOME/.cargo/env" && source $HOME/.cargo/env
+
 # Atuin
 # Case where atuin was installed through homebrew (macos)
+# or through Cargo (IMPORTANT: needs to be after cargo env)
 if which atuin &> /dev/null; then
   eval "$(atuin init zsh)"
 fi
@@ -150,12 +155,9 @@ if test -f "$HOME/.atuin/bin/env"; then
   eval "$(atuin init zsh)"
 fi
 
-
-# Tried adding this by Claude settings but it didn't pick it up
-export CLAUDE_CODE_DISABLE_TERMINAL_TITLE="1"
-export CLAUDE_DISABLE_TITLE_UPDATES="1"
-
-test -e "$HOME/.cargo/env" && source $HOME/.cargo/env
+if [[ $ATUIN_SESSION == "" ]]; then
+  >&2 echo "❌ atuin failed to initialize"
+fi
 
 if which ws &> /dev/null; then
   eval "$(ws activate zsh)"

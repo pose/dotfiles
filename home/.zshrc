@@ -35,6 +35,19 @@ then
   source ~/.localrc
 fi
 
+# Per-topic shell config, one file per concern, so this file does not grow
+# without bound. The files live in home/.config/zsh/conf.d in this repo; drop
+# another .zsh in there and it is picked up with no change here.
+#
+# The (N) glob qualifier is zsh's per-glob nullglob, and it is what makes this
+# safe on a fresh machine before `homeshick link` has run: without it a missing
+# or empty directory makes the glob fail to match and zsh reports "no matches
+# found" at every shell start.
+for _zshconf in "$HOME/.config/zsh/conf.d"/*.zsh(N); do
+  source "$_zshconf"
+done
+unset _zshconf
+
 # Needs to happen after so ZSG themes could be customized at ~/.localrc
 source $ZSH/oh-my-zsh.sh
 
